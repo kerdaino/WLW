@@ -61,18 +61,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const navMenu = document.querySelector(".navbar ul");
   const navLinks = document.querySelectorAll(".navbar ul li a");
 
-  // Only run if hamburger exists
   if (hamburger && navMenu) {
-    hamburger.addEventListener("click", () => {
+    // Toggle menu when hamburger is clicked
+    hamburger.addEventListener("click", (e) => {
+      e.stopPropagation(); // prevent click bubbling
       navMenu.classList.toggle("show");
     });
 
+    // Close nav when clicking a link
     navLinks.forEach(link => {
       link.addEventListener("click", () => {
         navMenu.classList.remove("show");
       });
     });
+
+    // Close nav on any scroll (after ~3px)
+    let lastScrollY = 0;
+    window.addEventListener("scroll", () => {
+      if (navMenu.classList.contains("show")) {
+        if (Math.abs(window.scrollY - lastScrollY) > 3) {
+          navMenu.classList.remove("show");
+        }
+      }
+      lastScrollY = window.scrollY;
+    });
+
+    // Close nav when clicking anywhere outside nav/hamburger
+    document.addEventListener("click", (e) => {
+      if (
+        navMenu.classList.contains("show") &&
+        !navMenu.contains(e.target) &&
+        !hamburger.contains(e.target)
+      ) {
+        navMenu.classList.remove("show");
+      }
+    });
   }
 });
-
 

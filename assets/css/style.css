@@ -30,7 +30,7 @@ main {
 
 body {
   font-family: "Helvetica Neue", "Proxima Sera", sans-serif;
-  background-color: #f1eade;
+  background-color: #ffffff;
   /* Main background */
   color: #1e1e1e;
   line-height: 1.6;
@@ -53,7 +53,7 @@ body {
 
 /* Header */
 header {
-  background: #f1eade;
+  background: #ffffff;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -63,25 +63,30 @@ header {
   z-index: 1000;
 }
 
-.logo h1 {
-  font-size: 1.2rem;
+.home-ln{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 10px;
+}
+
+.home-logo a{
+  display: flex;
+  justify-content: center;
+}
+
+.home-logo img{
+  width: 40%;
+  max-width: 500px;
 }
 
 .logo {
   display: flex;
-  max-width: 200px;
+  max-width: 300px;
 }
 
 .logo img {
-  width: 10%;
-}
-
-.wlw-orange {
-  color: #fe5627;
-}
-
-.wlw-black {
-  color: #1e1e1e;
+  width: 20%;
 }
 
 /* Navbar */
@@ -89,6 +94,8 @@ header {
   list-style: none;
   display: flex;
   gap: 1rem;
+  align-items: center;
+  margin-top: 5px;
 }
 
 .navbar a {
@@ -107,6 +114,7 @@ header {
   display: none;
   font-size: 2rem;
   cursor: pointer;
+  transition: all 0.5s ease; /* smooth movement */
 }
 
 /* Hero Section */
@@ -296,7 +304,7 @@ footer button {
   .navbar ul {
     display: none;
     flex-direction: column;
-    background: #f1eade;
+    background: #ffffff;
     position: absolute;
     top: 60px;
     right: 0;
