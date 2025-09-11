@@ -73,11 +73,25 @@ header {
 .home-logo a{
   display: flex;
   justify-content: center;
+  text-decoration: none;
+  color: #1e1e1e;
 }
 
-.home-logo img{
-  width: 40%;
-  max-width: 500px;
+
+
+.home-logo{
+  font-size: 1.5em;
+  border-bottom: #1e1e1e solid 3px;
+  width: 100%;
+  border-top: #1e1e1e solid 3px;
+}
+
+.home-logo span{
+  color: #d9451f;
+}
+
+.border-line{
+  border: 5px solid #1e1e1e;
 }
 
 .logo {
@@ -96,6 +110,7 @@ header {
   gap: 1rem;
   align-items: center;
   margin-top: 5px;
+  padding-top: 5px;
 }
 
 .navbar a {
