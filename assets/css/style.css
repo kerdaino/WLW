@@ -74,25 +74,28 @@ header {
   display: flex;
   justify-content: center;
   text-decoration: none;
-  color: #1e1e1e;
+  color: #1e1e1e; 
 }
 
-
+.home-logo img{
+  width: 25%;
+}
 
 .home-logo{
-  font-size: 1.5em;
-  border-bottom: #1e1e1e solid 3px;
   width: 100%;
-  border-top: #1e1e1e solid 3px;
+  margin: 0;
+  padding: 0;
 }
 
-.home-logo span{
-  color: #d9451f;
+
+
+
+.line {
+  border-bottom: 1px solid black;
+  width: 100vw;   /* makes it span full width */
+  margin: 0;
 }
 
-.border-line{
-  border: 5px solid #1e1e1e;
-}
 
 .logo {
   display: flex;
