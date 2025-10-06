@@ -41,6 +41,14 @@ body {
   animation: fadeIn 1s ease-in forwards;
 }
 
+p{
+  text-align: justify;
+  padding: 3px;
+  line-height: 1.7;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
