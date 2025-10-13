@@ -263,8 +263,8 @@ section {
   padding: 3rem 2rem;
 }
 
-.events-preview .event-cards,
-.frontrow-preview .posts {
+.events-preview .preview-grid,
+.frontrow-preview .preview-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
@@ -277,7 +277,7 @@ article {
 }
 
 article img {
-  width: 90%;
+  width: 20%;
 }
 
 /* Footer */
@@ -526,6 +526,7 @@ footer button {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 2rem;
+  margin: 10px;
 }
 
 .post-grid article {
@@ -651,15 +652,19 @@ footer button {
   gap: 2rem;
 }
 
-.grid-cards article {
+.grid-cards article, .preview-grid article{
   background: #fff;
   padding: 1rem;
-  /* border: 2px solid #ffa805; */
+  border: 2px solid #ffa805;
   border-radius: 8px;
   text-align: center;
 }
 
-.grid-cards img {
+.grid-cards article p, .preview-grid p{
+  text-align: center;
+}
+
+.grid-cards img, .preview-grid img {
   width: 100%;
   height: 250px;
   /* Fix image height */
@@ -687,7 +692,7 @@ footer button {
 .ceo-text {
   background: #fff;
   padding: 2rem;
-  /* border: 2px solid #ffa805; */
+  border: 2px solid #ffa805;
   border-radius: 8px;
 }
 
@@ -695,4 +700,81 @@ footer button {
   margin-bottom: 1rem;
   font-size: 1.4rem;
   font-style: italic;
+}
+
+.press{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.press button{
+  width: 200px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.press button a{
+  text-decoration: none;
+  color: #d9451f;
+}
+
+.hme h2{
+  text-align: center;
+}
+
+.foot p,.ceo-text p{
+  text-align: center;
+}
+
+.blog-post{
+  margin: 0 auto;
+  /* padding: 20px; */
+}
+
+.blog-post h1, .post-meta{
+  text-align: center;
+}
+
+.blog-post img{
+  width: 100vw;              /* full viewport width */
+  margin-left: 50%;
+  transform: translateX(-50%);
+  height: 400px;             /* control height */
+  object-fit: cover;
+  display: block;
+}
+
+.post-nav a{
+  text-decoration: none;
+  color: #d9451f;
+  margin-left: 5px;
+  border-radius: 20px;
+  padding: 10px;
+  background: #f1eade;
+}
+
+.post-nav a:hover{
+  text-decoration: underline
+}
+
+.comments .align{
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+.align input,.align textarea,.align button{
+  margin: 5px;
+  padding: 5px;
+}
+
+.align button{
+  color: #d9451f;
+  border-radius: 5px;
+}
+
+.align button:hover{
+  text-decoration: underline;
 }
