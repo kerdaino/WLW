@@ -7,6 +7,8 @@
     <title>Backstage | What Lagos Wore</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -19,7 +21,6 @@
                 <ul>
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="/frontrow/index.html">Front Row</a></li>
-                    <li><a href="/blog/index.html">Blog</a></li>
                     <li><a href="index.html" class="active">Backstage</a></li>
                     <li><a href="/events/index.html">Events</a></li>
                     <li><a href="/about/index.html">About</a></li>
@@ -29,10 +30,12 @@
             </nav>
         </header>
         <main>
-            <section>
-                <img src="/assets/media/page4_img2.png" alt="">
+            <section class="blog-post">
+              <div class="backstage">
                 <h2>Ghana Must Go: From Market Bag to Runway</h2>
                 <p><strong>Written by: Maryam Opoola</strong></p>
+                </div>
+                <img src="/assets/media/ghana-must.jpg" alt="">
                 <p>
                     It began not on the glossy pages of Vogue or under the bright lights of Paris, but in the bustling markets of West Africa. A checked plastic “bag”- blue, red, and white - became a lifeline for families carrying their worlds in woven squares of nylon. Known across Africa as the “Ghana Must Go” bag, it was born out of displacement, a vessel of survival, and a silent witness to migration. Few objects have carried such weight, both literal and symbolic, in modern African history. Yet, decades later, that same bag has found itself reimagined on runways, transformed into a fashion statement by the likes of Louis Vuitton, Celine, and Balenciaga. How did a humble market bag travel from the streets of Lagos to the catwalks of Paris?
                 </p>
@@ -49,7 +52,7 @@
             <!-- The media links -->
             <section>
                 <h2>Check This Out</h2>
-                <ul>
+                <ul class="post-grid">
                     <li><a href="https://www.instagram.com/p/DOlxiTZESWa/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
                             target="_blank">Guzangs</a></li>
                 </ul>
@@ -59,24 +62,14 @@
             <!-- Previous Posts -->
             <section class="previous-posts">
                 <h3>Other Labels to Catch Up On</h3>
-                <div class="post-grid">
-                    <article>
-            <!-- <img src="/assets/media/page3_img4.png" alt="Mini Skirt"> -->
-            <h4>Shade Thomas-Fahm – The Mother of Modern Nigerian Fashion</h4>
-            <a href="/backstage/shade-fahm.html">READ NOW</a>
-          </article>
+                <div class="post-grid grid-cards">
           <article>
-            <!-- <img src="/assets/media/page3_img5.jpeg" alt="Bois Takeover"> -->
-            <h4>Ifebuche Madu’s Vision for African Textiles</h4>
-            <a href="/backstage/Ifebuche-Madu.html">READ NOW</a>
-          </article>
-          <article>
-            <!-- <img src="/assets/media/page3_img5.jpeg" alt="Bois Takeover"> -->
+            <img src="/assets/media/afrisatbel.jpeg" alt="Bois Takeover">
             <h4>The Tale of Cowries and Stove Wicks in Nigerian Fashion</h4>
             <a href="/backstage/market-tokens.html">READ NOW</a>
           </article>
           <article>
-            <!-- <img src="/assets/media/page3_img5.jpeg" alt="Bois Takeover"> -->
+            <img src="/assets/media/karl.jpeg" alt="Bois Takeover">
             <h4>African Fashion’s Collaborations and Their Lasting Impact</h4>
             <a href="/backstage/kenneth-karl.html">READ NOW</a>
           </article>
@@ -84,7 +77,7 @@
             </section>
         </main>
         <!-- FOOTER -->
-    <footer id="footer">
+    <footer id="footer" class="foot">
       <h2>Contact Us</h2>
       <div class="footer-flex">
         <div class="contact-form">
