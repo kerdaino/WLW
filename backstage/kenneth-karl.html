@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backstage | What Lagos Wore</title>
     <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -18,7 +20,6 @@
                 <ul>
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="/frontrow/index.html">Front Row</a></li>
-                    <li><a href="/blog/index.html">Blog</a></li>
                     <li><a href="index.html" class="active">Backstage</a></li>
                     <li><a href="/events/index.html">Events</a></li>
                     <li><a href="/about/index.html">About</a></li>
@@ -28,10 +29,12 @@
             </nav>
         </header>
         <main>
-            <section>
-                <img src="/assets/media/page4_img2.png" alt="">
+            <section class="blog-post">
+              <div class="backstage">
                 <h2>Threads of Power: African Fashion’s Collaborations and Their Lasting Impact</h2>
                 <p><strong>Written by: Maryam Opoola</strong></p>
+                </div>
+                <img src="/assets/media/karl.jpeg" alt="">
                 <p>
                     African fashion has never waited for validation. Long before the runways of Paris or Milan turned
                     their gaze south, designers across the continent were weaving identity, heritage, and innovation
@@ -82,7 +85,7 @@
             <!-- The media links -->
             <section>
                 <h2>Explore More from Kenneth and Karl</h2>
-                <ul>
+                <ul class="post-grid">
                     <li><a href="https://www.instagram.com/p/CRvPl02MTjN/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
                             target="_blank">THE  COLLABO</a></li>
                     <li><a href="https://www.instagram.com/p/CRCelW5LQ8c/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
@@ -90,30 +93,39 @@
                     <li><a href="https://www.instagram.com/p/CV5eoJbK3th/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
                             target="_blank">#KennethIzeForKarlLagerfeld</a></li>
                     <li><a href="https://www.instagram.com/p/CRJaGq0MWrY/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                            target="_blank">KARLxKENNETH collection.</a></li>
+                            target="_blank">KARLxKENNETH collection</a></li>
                 </ul>
             </section>
 
+            <!-- Comments -->
+      <section class="comments">
+        <h3>Comments</h3>
+        <form class="align">
+          <input type="text" placeholder="Name" required>
+          <textarea placeholder="Add your comment"></textarea>
+          <button type="submit"><strong>Post</strong></button>
+        </form>
+      </section>
 
             <!-- Previous Posts -->
             <section class="previous-posts">
                 <h3>Other Labels to Catch Up On</h3>
-                <div class="post-grid">
-                    <article>
-            <!-- <img src="/assets/media/page3_img4.png" alt="Mini Skirt"> -->
-            <h4>Shade Thomas-Fahm – The Mother of Modern Nigerian Fashion</h4>
-            <a href="/backstage/shade-fahm.html">READ NOW</a>
+                <div class="post-grid grid-cards">
+          <article>
+            <img src="/assets/media/afrisatbel.jpeg" alt="Bois Takeover">
+            <h4>The Tale of Cowries and Stove Wicks in Nigerian Fashion</h4>
+            <a href="/backstage/market-tokens.html">READ NOW</a>
           </article>
           <article>
-            <!-- <img src="/assets/media/page3_img5.jpeg" alt="Bois Takeover"> -->
-            <h4>Ifebuche Madu’s Vision for African Textiles</h4>
-            <a href="/backstage/Ifebuche-Madu.html">READ NOW</a>
+            <img src="/assets/media/ghana-must.jpg" alt="Bois Takeover">
+            <h4>From Market Bag to Runway</h4>
+            <a href="/backstage/ghana-must.html">READ NOW</a>
           </article>
                 </div>
             </section>
         </main>
         <!-- FOOTER -->
-    <footer id="footer">
+    <footer id="footer" class="foot">
       <h2>Contact Us</h2>
       <div class="footer-flex">
         <div class="contact-form">

@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Backstage | What Lagos Wore</title>
   <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -18,7 +20,6 @@
         <ul>
           <li><a href="../index.html">Home</a></li>
           <li><a href="/frontrow/index.html">Front Row</a></li>
-          <li><a href="/blog/index.html">Blog</a></li>
           <li><a href="index.html" class="active">Backstage</a></li>
           <li><a href="/events/index.html">Events</a></li>
           <li><a href="/about/index.html">About</a></li>
@@ -28,10 +29,12 @@
       </nav>
     </header>
     <main>
-      <section>
-        <img src="/assets/media/page4_img2.png" alt="">
+      <section class="blog-post">
+        <div class="backstage">
         <h2>Behind the Label: Shade Thomas-Fahm – The Mother of Modern Nigerian Fashion</h2>
         <p><strong>Written by: Maryam Opoola</strong></p>
+        </div>
+        <img src="/assets/media/shade2.jpeg" alt="#">
         <p>
           Before Nigerian fabrics dazzled on international runways, before African fashion was celebrated as a global
           force, one woman had already seen its potential. Shade Thomas-Fahm was not just a designer; she was a pioneer
@@ -84,7 +87,7 @@
       <!-- The media links -->
        <section>
         <h2>Explore More from Shade Thomas-Fahm’s Legacy</h2>
-        <ul>
+        <ul class="post-grid">
           <li><a href="https://www.instagram.com/p/CUHgKs_sJJP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">Old picture</a></li>
           <li><a href="https://www.instagram.com/p/CUHV-ysBzHW/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">Old picture of her work</a></li>
           <li><a href="https://www.instagram.com/p/CULUg18gYqt/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">New picture</a></li>
@@ -97,18 +100,27 @@
         </ul>
        </section>
 
+       <!-- Comments -->
+      <section class="comments">
+        <h3>Comments</h3>
+        <form class="align">
+          <input type="text" placeholder="Name" required>
+          <textarea placeholder="Add your comment"></textarea>
+          <button type="submit"><strong>Post</strong></button>
+        </form>
+      </section>
 
       <!-- Previous Posts -->
       <section class="previous-posts">
         <h3>Other Labels to Catch Up On</h3>
-        <div class="post-grid">
+        <div class="post-grid grid-cards">
           <article>
-            <!-- <img src="/assets/media/page3_img4.png" alt="Mini Skirt"> -->
+            <img src="/assets/media/madu.png" alt="Mini Skirt">
             <h4>Ifebuche Madu’s Vision for African Textiles</h4>
             <a href="/backstage/Ifebuche-Madu.html">READ NOW</a>
           </article>
           <article>
-            <!-- <img src="/assets/media/page3_img5.jpeg" alt="Bois Takeover"> -->
+            <img src="/assets/media/karl.jpeg" alt="Bois Takeover">
             <h4>African Fashion’s Collaborations and Their Lasting Impact</h4>
             <a href="/backstage/kenneth-karl.html">READ NOW</a>
           </article>
@@ -116,7 +128,7 @@
       </section>
     </main>
     <!-- FOOTER -->
-    <footer id="footer">
+    <footer id="footer" class="foot">
       <h2>Contact Us</h2>
       <div class="footer-flex">
         <div class="contact-form">
