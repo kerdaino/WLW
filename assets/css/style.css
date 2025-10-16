@@ -745,7 +745,7 @@ footer button {
 
 .foot p,
 .ceo-text p,
-.foot h1 {
+.foot h1, .foot h2 {
   text-align: center;
 }
 
