@@ -698,7 +698,7 @@ footer button {
 }
 
 .ceo-img img {
-  width: 100%;
+  width: 90%;
   height: 400px;
   object-fit: cover;
   border-radius: 8px;
@@ -709,6 +709,7 @@ footer button {
   padding: 2rem;
   border: 2px solid #ffa805;
   border-radius: 8px;
+  width: 90%;
 }
 
 .ceo-text h2 {
