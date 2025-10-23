@@ -1,6 +1,7 @@
 // netlify/functions/submitComment.js
 
-const fetch = require("node-fetch");
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
