@@ -1,113 +1,120 @@
 // assets/js/comments.js
-(function(){
-
+(function () {
   const SANITY_PROJECT_ID = "cvypf2o3";
   const SANITY_DATASET = "production";
   const NETLIFY_FN = "/.netlify/functions/submitComment";
 
-  // Helper: current post slug
+  // Helper: get current post slug
   function getPostSlug() {
     return location.pathname;
   }
 
-  // Fetch all comments and replies
+  // ===== FETCH COMMENTS =====
   async function fetchComments() {
-  const slug = getPostSlug();
-  const query = `
-    *[_type == "comment" && postSlug == "${slug}"] | order(_createdAt asc) {
-      _id,
-      name,
-      comment,
-      _createdAt,
-      parentComment->{_id}
-    }
-  `;
-  const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${encodeURIComponent(query)}`;
+    const slug = getPostSlug();
+    const query = `
+      *[_type == "comment" && postSlug == "${slug}"] | order(_createdAt asc) {
+        _id,
+        name,
+        comment,
+        _createdAt,
+        parentComment->{_id}
+      }
+    `;
+    const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${encodeURIComponent(
+      query
+    )}`;
 
-  const res = await fetch(url);
-  const json = await res.json();
-  const comments = json.result || [];
+    const res = await fetch(url);
+    const json = await res.json();
+    const comments = json.result || [];
 
-  // Group replies under their parent
-  const grouped = {};
-  const roots = [];
+    // Group replies under their parents
+    const grouped = {};
+    const roots = [];
 
-  comments.forEach(c => {
-    if (c.parentComment?._id) {
-      if (!grouped[c.parentComment._id]) grouped[c.parentComment._id] = [];
-      grouped[c.parentComment._id].push(c);
-    } else {
-      roots.push(c);
-    }
-  });
+    comments.forEach((c) => {
+      if (c.parentComment?._id) {
+        if (!grouped[c.parentComment._id]) grouped[c.parentComment._id] = [];
+        grouped[c.parentComment._id].push(c);
+      } else {
+        roots.push(c);
+      }
+    });
 
-  return { roots, grouped };
-}
-
-function renderComments({ roots, grouped }) {
-  const container = document.querySelector(".comments");
-  if (!container) return;
-
-  let list = container.querySelector(".comment-list");
-  if (!list) {
-    list = document.createElement("div");
-    list.className = "comment-list";
-    container.appendChild(list);
+    return { roots, grouped };
   }
 
-  list.innerHTML = roots.map(c => renderCommentItem(c, grouped)).join("");
-}
+  // ===== RENDER COMMENTS =====
+  function renderComments({ roots, grouped }) {
+    const container = document.querySelector(".comments");
+    if (!container) return;
 
+    let list = container.querySelector(".comment-list");
+    if (!list) {
+      list = document.createElement("div");
+      list.className = "comment-list";
+      container.appendChild(list);
+    }
 
-  // Render individual comment + nested replies
+    list.innerHTML = roots.map((c) => renderCommentItem(c, grouped)).join("");
+  }
+
   function renderCommentItem(comment, repliesMap, isReply = false) {
-  const replies = repliesMap[comment._id] || [];
-  const repliesHtml = replies.map(r => renderCommentItem(r, repliesMap, true)).join("");
+    const replies = repliesMap[comment._id] || [];
+    const repliesHtml = replies
+      .map((r) => renderCommentItem(r, repliesMap, true))
+      .join("");
 
-  return `
-    <div class="comment-item ${isReply ? "reply-item" : "main-comment"}" data-id="${comment._id}">
-      <div class="comment-box">
-        <strong>${escapeHtml(comment.name)}</strong>
-        <p>${escapeHtml(comment.comment)}</p>
-        <small>${new Date(comment._createdAt).toLocaleString()}</small>
-        <button class="reply-btn">Reply</button>
+    return `
+      <div class="comment-item ${isReply ? "reply-item" : "main-comment"}" data-id="${comment._id}">
+        <div class="comment-box">
+          <strong>${escapeHtml(comment.name)}</strong>
+          <p>${escapeHtml(comment.comment)}</p>
+          <small>${new Date(comment._createdAt).toLocaleString()}</small>
+          <button class="reply-btn">Reply</button>
 
-        <form class="reply-form hidden">
-          <input type="text" placeholder="Your name" required />
-          <textarea placeholder="Write a reply..." required></textarea>
-          <button type="submit">Reply</button>
-        </form>
+          <form class="reply-form hidden">
+            <input type="text" placeholder="Your name" required />
+            <textarea placeholder="Write a reply..." required></textarea>
+            <button type="submit">Reply</button>
+          </form>
+        </div>
+        ${
+          replies.length
+            ? `<div class="replies">${repliesHtml}</div>`
+            : '<div class="replies"></div>'
+        }
       </div>
-      ${replies.length ? `<div class="replies">${repliesHtml}</div>` : ""}
-    </div>
-  `;
-}
-
-
-
-  // Escape HTML
-  function escapeHtml(text = "") {
-    return text.replace(/[&<>"']/g, (m) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    }[m]));
+    `;
   }
 
-  // Handle reply toggle and submission
+  // ===== UTILS =====
+  function escapeHtml(text = "") {
+    return text.replace(/[&<>"']/g, (m) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[m])
+    );
+  }
+
+  // ===== REPLY HANDLING =====
   function setupReplyForms() {
-    document.querySelectorAll(".reply-btn").forEach(btn => {
+    document.querySelectorAll(".reply-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const form = btn.nextElementSibling;
         form.classList.toggle("hidden");
       });
     });
 
-    document.querySelectorAll(".reply-form").forEach(form => {
+    document.querySelectorAll(".reply-form").forEach((form) => {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const parentId = form.closest(".comment-item").dataset.id;
         const name = form.querySelector("input").value.trim();
         const text = form.querySelector("textarea").value.trim();
@@ -118,23 +125,25 @@ function renderComments({ roots, grouped }) {
           name,
           comment: text,
           postSlug: getPostSlug(),
-          parentId,
+          parentCommentId: parentId, // ✅ fixed key name to match backend
         };
 
         try {
           const res = await fetch(NETLIFY_FN, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
           });
 
           if (!res.ok) throw new Error("Failed to submit reply");
 
-          // ✅ Instead of alert — auto refresh the comment list
+          // Clear fields and re-render updated comments
+          form.querySelector("input").value = "";
+          form.querySelector("textarea").value = "";
+
           const comments = await fetchComments();
           renderComments(comments);
-          setupReplyForms();
-
+          setupReplyForms(); // rebind handlers
         } catch (err) {
           alert("❌ " + err.message);
         }
@@ -142,7 +151,7 @@ function renderComments({ roots, grouped }) {
     });
   }
 
-  // Handle main comment form
+  // ===== MAIN COMMENT FORM =====
   function setupMainForm() {
     const form = document.querySelector(".comments form.align");
     if (!form) return;
@@ -169,7 +178,7 @@ function renderComments({ roots, grouped }) {
       try {
         const res = await fetch(NETLIFY_FN, {
           method: "POST",
-          headers: {"Content-Type": "application/json"},
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
 
@@ -181,8 +190,7 @@ function renderComments({ roots, grouped }) {
 
         const comments = await fetchComments();
         renderComments(comments);
-        setupReplyForms();
-
+        setupReplyForms(); // ensure reply buttons rebind
       } catch (err) {
         console.error(err);
         successDiv.textContent = "❌ " + err.message;
@@ -190,6 +198,7 @@ function renderComments({ roots, grouped }) {
     });
   }
 
+  // ===== INIT =====
   async function init() {
     try {
       const comments = await fetchComments();
@@ -207,5 +216,4 @@ function renderComments({ roots, grouped }) {
   } else {
     init();
   }
-
 })();
