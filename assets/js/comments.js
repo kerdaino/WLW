@@ -51,12 +51,13 @@
   }
 
   // Render individual comment + nested replies
-  function renderCommentItem(comment, repliesMap) {
-    const replies = repliesMap[comment._id] || [];
-    const repliesHtml = replies.map(r => renderCommentItem(r, repliesMap)).join("");
+  function renderCommentItem(comment, repliesMap, isReply = false) {
+  const replies = repliesMap[comment._id] || [];
+  const repliesHtml = replies.map(r => renderCommentItem(r, repliesMap, true)).join("");
 
-    return `
-      <div class="comment-item" data-id="${comment._id}">
+  return `
+    <div class="comment-item ${isReply ? "reply-item" : "main-comment"}" data-id="${comment._id}">
+      <div class="comment-box">
         <strong>${escapeHtml(comment.name)}</strong>
         <p>${escapeHtml(comment.comment)}</p>
         <small>${new Date(comment._createdAt).toLocaleString()}</small>
@@ -67,11 +68,17 @@
           <textarea placeholder="Write a reply..." required></textarea>
           <button type="submit">Reply</button>
         </form>
-
-        ${replies.length ? `<div class="replies">${repliesHtml}</div>` : ""}
       </div>
-    `;
-  }
+
+      ${
+        replies.length
+          ? `<div class="replies"><h4 class="reply-title">Replies:</h4>${repliesHtml}</div>`
+          : ""
+      }
+    </div>
+  `;
+}
+
 
   // Escape HTML
   function escapeHtml(text = "") {

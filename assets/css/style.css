@@ -874,3 +874,95 @@ footer button {
   padding-left: 10px;
   margin-top: 10px;
 }
+
+/* ===== COMMENT & REPLY STYLING ===== */
+.comment-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.comment-item {
+  background: #fff;
+  border: 2px solid #ffa805;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.main-comment {
+  background: #fff7e6;
+}
+
+.reply-item {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-left: 2rem;
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 6px;
+}
+
+.reply-title {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0.5rem 0;
+}
+
+.comment-item strong {
+  color: #d9451f;
+}
+
+.comment-item small {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.comment-item .reply-btn {
+  background: transparent;
+  border: none;
+  color: #fe5627;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.comment-item .reply-btn:hover {
+  text-decoration: underline;
+}
+
+.reply-form {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.reply-form.hidden {
+  display: none;
+}
+
+.reply-form input,
+.reply-form textarea {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.reply-form button {
+  align-self: flex-start;
+  background: #fe5627;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.reply-form button:hover {
+  background: #d9451f;
+}
+
