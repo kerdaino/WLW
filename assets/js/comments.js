@@ -12,7 +12,7 @@
 
   async function fetchComments() {
     const slug = getPostSlug();
-    const query = `*[_type == "comment" && postSlug == "${slug}"] | order(publishedAt desc){name,text,publishedAt}`;
+    const query = `*[_type == "comment" && postSlug == "${slug}"] | order(_createdAt desc){name, comment, _createdAt}`;
     const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${encodeURIComponent(query)}`;
 
     const res = await fetch(url);
@@ -34,8 +34,8 @@
     list.innerHTML = comments.map(c => `
       <div class="comment-item">
         <strong>${escapeHtml(c.name)}</strong>
-        <p>${escapeHtml(c.text)}</p>
-        <small>${new Date(c.publishedAt).toLocaleString()}</small>
+        <p>${escapeHtml(c.comment)}</p>
+        <small>${new Date(c._createdAt).toLocaleString()}</small>
       </div>
     `).join("");
   }
@@ -54,6 +54,10 @@
     const form = document.querySelector(".comments form.align");
     if (!form) return;
 
+    const successDiv = document.createElement("div");
+    successDiv.className = "comment-message";
+    form.appendChild(successDiv);
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -62,11 +66,11 @@
 
       const payload = {
         name: nameInput.value.trim(),
-        text: textarea.value.trim(),
+        comment: textarea.value.trim(),
         postSlug: getPostSlug(),
       };
 
-      if (!payload.name || !payload.text)
+      if (!payload.name || !payload.comment)
         return alert("Please complete all fields");
 
       try {
@@ -80,12 +84,14 @@
 
         nameInput.value = "";
         textarea.value = "";
+        successDiv.textContent = "✅ Comment submitted successfully!";
 
         const comments = await fetchComments();
         renderComments(comments);
 
       } catch (err) {
-        alert("Error: " + err.message);
+        console.error(err);
+        successDiv.textContent = "❌ " + err.message;
       }
     });
   }
