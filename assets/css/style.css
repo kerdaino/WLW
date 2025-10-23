@@ -799,3 +799,78 @@ footer button {
 .backstage h2, .backstage p{
   text-align: center;
 }
+
+/* ===== COMMENT REPLIES ===== */
+
+/* Hide elements by default */
+.hidden {
+  display: none;
+}
+
+/* Style individual comment items */
+.comment-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* Add subtle shadow on hover */
+.comment-item:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style reply button */
+.reply-btn {
+  background: transparent;
+  color: #fe5627;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  padding: 0;
+}
+
+.reply-btn:hover {
+  text-decoration: underline;
+}
+
+/* Reply form styling */
+.reply-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-left: 20px;
+}
+
+.reply-form input,
+.reply-form textarea {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.reply-form button {
+  align-self: flex-start;
+  background: #fe5627;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.reply-form button:hover {
+  background: #d9451f;
+}
+
+/* Replies section indentation */
+.replies {
+  margin-left: 20px;
+  border-left: 2px solid #ffa805;
+  padding-left: 10px;
+  margin-top: 10px;
+}
