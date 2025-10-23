@@ -12,43 +12,52 @@
 
   // Fetch all comments and replies
   async function fetchComments() {
-    const slug = getPostSlug();
-    const query = `
-      *[_type == "comment" && postSlug == "${slug}"] | order(_createdAt asc) {
-        _id, name, comment, _createdAt, parent->{_id}
-      }
-    `;
-    const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${encodeURIComponent(query)}`;
-    const res = await fetch(url);
-    const json = await res.json();
-    return json.result || [];
-  }
-
-  // Render all comments and replies (threaded)
-  function renderComments(comments) {
-    const container = document.querySelector(".comments");
-    if (!container) return;
-
-    let list = container.querySelector(".comment-list");
-    if (!list) {
-      list = document.createElement("div");
-      list.className = "comment-list";
-      container.appendChild(list);
+  const slug = getPostSlug();
+  const query = `
+    *[_type == "comment" && postSlug == "${slug}"] | order(_createdAt asc) {
+      _id,
+      name,
+      comment,
+      _createdAt,
+      parentComment->{_id}
     }
+  `;
+  const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${encodeURIComponent(query)}`;
 
-    // Separate top-level comments and replies
-    const topComments = comments.filter(c => !c.parent);
-    const repliesMap = {};
-    comments.forEach(c => {
-      if (c.parent?._id) {
-        if (!repliesMap[c.parent._id]) repliesMap[c.parent._id] = [];
-        repliesMap[c.parent._id].push(c);
-      }
-    });
+  const res = await fetch(url);
+  const json = await res.json();
+  const comments = json.result || [];
 
-    // Generate HTML
-    list.innerHTML = topComments.map(c => renderCommentItem(c, repliesMap)).join("");
+  // Group replies under their parent
+  const grouped = {};
+  const roots = [];
+
+  comments.forEach(c => {
+    if (c.parentComment?._id) {
+      if (!grouped[c.parentComment._id]) grouped[c.parentComment._id] = [];
+      grouped[c.parentComment._id].push(c);
+    } else {
+      roots.push(c);
+    }
+  });
+
+  return { roots, grouped };
+}
+
+function renderComments({ roots, grouped }) {
+  const container = document.querySelector(".comments");
+  if (!container) return;
+
+  let list = container.querySelector(".comment-list");
+  if (!list) {
+    list = document.createElement("div");
+    list.className = "comment-list";
+    container.appendChild(list);
   }
+
+  list.innerHTML = roots.map(c => renderCommentItem(c, grouped)).join("");
+}
+
 
   // Render individual comment + nested replies
   function renderCommentItem(comment, repliesMap, isReply = false) {
@@ -69,15 +78,11 @@
           <button type="submit">Reply</button>
         </form>
       </div>
-
-      ${
-        replies.length
-          ? `<div class="replies"><h4 class="reply-title">Replies:</h4>${repliesHtml}</div>`
-          : ""
-      }
+      ${replies.length ? `<div class="replies">${repliesHtml}</div>` : ""}
     </div>
   `;
 }
+
 
 
   // Escape HTML
