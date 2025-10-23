@@ -1,26 +1,30 @@
 // assets/js/comments.js
 (function(){
 
-  const SANITY_PROJECT_ID = "cvypf2o3"; // ✅ Your project ID
+  const SANITY_PROJECT_ID = "cvypf2o3";
   const SANITY_DATASET = "production";
   const NETLIFY_FN = "/.netlify/functions/submitComment";
 
-  // Helper to get slug from current URL
+  // Helper: current post slug
   function getPostSlug() {
-    return location.pathname; // ex: /frontrow/love-letter.html
+    return location.pathname;
   }
 
+  // Fetch all comments and replies
   async function fetchComments() {
     const slug = getPostSlug();
-    const query = `*[_type == "comment" && postSlug == "${slug}" && !defined(parentComment)] | order(_createdAt desc){_id, name, comment, _createdAt}`;
+    const query = `
+      *[_type == "comment" && postSlug == "${slug}"] | order(_createdAt asc) {
+        _id, name, comment, _createdAt, parent->{_id}
+      }
+    `;
     const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${encodeURIComponent(query)}`;
-
     const res = await fetch(url);
     const json = await res.json();
     return json.result || [];
   }
 
-  // ✅ UPDATED renderComments — now includes "Reply" buttons and reply forms
+  // Render all comments and replies (threaded)
   function renderComments(comments) {
     const container = document.querySelector(".comments");
     if (!container) return;
@@ -32,25 +36,44 @@
       container.appendChild(list);
     }
 
-    list.innerHTML = comments.map(c => `
-      <div class="comment-item" data-id="${c._id}">
-        <strong>${escapeHtml(c.name)}</strong>
-        <p>${escapeHtml(c.comment)}</p>
-        <small>${new Date(c._createdAt).toLocaleString()}</small>
-        <button class="reply-btn">Reply</button>
-        <div class="reply-form hidden">
-          <input type="text" placeholder="Your name" class="reply-name" />
-          <textarea placeholder="Your reply" class="reply-text"></textarea>
-          <button class="reply-submit">Post Reply</button>
-        </div>
-        <div class="replies"></div>
-      </div>
-    `).join("");
+    // Separate top-level comments and replies
+    const topComments = comments.filter(c => !c.parent);
+    const repliesMap = {};
+    comments.forEach(c => {
+      if (c.parent?._id) {
+        if (!repliesMap[c.parent._id]) repliesMap[c.parent._id] = [];
+        repliesMap[c.parent._id].push(c);
+      }
+    });
 
-    setupReplyHandlers();
+    // Generate HTML
+    list.innerHTML = topComments.map(c => renderCommentItem(c, repliesMap)).join("");
   }
 
-  // ✅ Helper for safe text
+  // Render individual comment + nested replies
+  function renderCommentItem(comment, repliesMap) {
+    const replies = repliesMap[comment._id] || [];
+    const repliesHtml = replies.map(r => renderCommentItem(r, repliesMap)).join("");
+
+    return `
+      <div class="comment-item" data-id="${comment._id}">
+        <strong>${escapeHtml(comment.name)}</strong>
+        <p>${escapeHtml(comment.comment)}</p>
+        <small>${new Date(comment._createdAt).toLocaleString()}</small>
+        <button class="reply-btn">Reply</button>
+
+        <form class="reply-form hidden">
+          <input type="text" placeholder="Your name" required />
+          <textarea placeholder="Write a reply..." required></textarea>
+          <button type="submit">Reply</button>
+        </form>
+
+        ${replies.length ? `<div class="replies">${repliesHtml}</div>` : ""}
+      </div>
+    `;
+  }
+
+  // Escape HTML
   function escapeHtml(text = "") {
     return text.replace(/[&<>"']/g, (m) => ({
       "&": "&amp;",
@@ -61,8 +84,8 @@
     }[m]));
   }
 
-  // ✅ Handles reply button clicks and reply submissions
-  function setupReplyHandlers() {
+  // Handle reply toggle and submission
+  function setupReplyForms() {
     document.querySelectorAll(".reply-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const form = btn.nextElementSibling;
@@ -70,43 +93,45 @@
       });
     });
 
-    document.querySelectorAll(".reply-submit").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const commentItem = btn.closest(".comment-item");
-        const parentId = commentItem.getAttribute("data-id");
-        const name = commentItem.querySelector(".reply-name").value.trim();
-        const reply = commentItem.querySelector(".reply-text").value.trim();
+    document.querySelectorAll(".reply-form").forEach(form => {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const parentId = form.closest(".comment-item").dataset.id;
+        const name = form.querySelector("input").value.trim();
+        const text = form.querySelector("textarea").value.trim();
 
-        if (!name || !reply) return alert("Please fill in all fields");
+        if (!name || !text) return alert("Please complete all fields");
+
+        const payload = {
+          name,
+          comment: text,
+          postSlug: getPostSlug(),
+          parentId,
+        };
 
         try {
-          const res = await fetch("/.netlify/functions/submitReply", {
+          const res = await fetch(NETLIFY_FN, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name,
-              comment: reply,
-              postSlug: getPostSlug(),
-              parentComment: parentId,
-            }),
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload),
           });
 
-          if (res.ok) {
-            alert("✅ Reply posted!");
-            const comments = await fetchComments();
-            renderComments(comments);
-          } else {
-            alert("❌ Failed to post reply");
-          }
+          if (!res.ok) throw new Error("Failed to submit reply");
+
+          // ✅ Instead of alert — auto refresh the comment list
+          const comments = await fetchComments();
+          renderComments(comments);
+          setupReplyForms();
+
         } catch (err) {
-          alert("⚠️ " + err.message);
+          alert("❌ " + err.message);
         }
       });
     });
   }
 
-  // ✅ Original form setup (for top-level comments)
-  function setupForm() {
+  // Handle main comment form
+  function setupMainForm() {
     const form = document.querySelector(".comments form.align");
     if (!form) return;
 
@@ -144,6 +169,7 @@
 
         const comments = await fetchComments();
         renderComments(comments);
+        setupReplyForms();
 
       } catch (err) {
         console.error(err);
@@ -152,16 +178,16 @@
     });
   }
 
-  // ✅ Initialization
   async function init() {
     try {
       const comments = await fetchComments();
       renderComments(comments);
+      setupReplyForms();
     } catch (err) {
       console.log("Error loading comments", err);
     }
 
-    setupForm();
+    setupMainForm();
   }
 
   if (document.readyState === "loading") {
