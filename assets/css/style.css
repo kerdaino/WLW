@@ -745,7 +745,7 @@ footer button {
 .comments .align {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  /* max-width: 500px; */
 }
 
 .align input,
