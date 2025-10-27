@@ -718,6 +718,10 @@ footer button {
   text-align: center;
 }
 
+.blog-post p{
+  text-align: justify;
+}
+
 .blog-post img {
   width: 100vw;
   margin-left: 50%;
