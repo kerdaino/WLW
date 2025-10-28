@@ -11,9 +11,9 @@
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
-<link rel="manifest" href="/assets/media/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
+  <link rel="manifest" href="/assets/media/site.webmanifest">
 </head>
 
 <body>
@@ -120,11 +120,14 @@
       <!-- Comments -->
       <section class="comments">
         <h3>Comments</h3>
-        <form class="align">
-          <input type="text" placeholder="Name" required>
-          <textarea placeholder="Add your comment"></textarea>
+        <form id="comment-form" class="align">
+          <input id="comment-name" type="text" placeholder="Name" required>
+          <textarea id="comment-body" placeholder="Add your comment"></textarea>
           <button type="submit"><strong>Post</strong></button>
         </form>
+
+        <!-- Add this somewhere in your comments section -->
+        <div id="comment-list"></div>
       </section>
 
       <!-- Previous Posts -->

@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
-<link rel="manifest" href="/assets/media/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
+    <link rel="manifest" href="/assets/media/site.webmanifest">
 </head>
 
 <body>
@@ -100,18 +100,21 @@
                 <a href="/events/index.html">&larr; Back to Events</a>
             </div>
 
-             <!-- Comments -->
-      <section class="comments">
-        <h3>Comments</h3>
-        <form class="align">
-          <input type="text" placeholder="Name" required>
-          <textarea placeholder="Add your comment"></textarea>
-          <button type="submit"><strong>Post</strong></button>
-        </form>
-      </section>
+            <!-- Comments -->
+            <section class="comments">
+                <h3>Comments</h3>
+                <form id="comment-form" class="align">
+                    <input id="comment-name" type="text" placeholder="Name" required>
+                    <textarea id="comment-body" placeholder="Add your comment"></textarea>
+                    <button type="submit"><strong>Post</strong></button>
+                </form>
 
-      <!-- Previous Posts -->
-      <!-- <section class="previous-posts">
+                <!-- Add this somewhere in your comments section -->
+                <div id="comment-list"></div>
+            </section>
+
+            <!-- Previous Posts -->
+            <!-- <section class="previous-posts">
         <h3>CATCH UP ON PREVIOUS POSTS</h3>
         <div class="post-grid grid-cards">
           <article>
