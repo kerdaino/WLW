@@ -1,18 +1,13 @@
 // assets/js/comments.js
 (function () {
-  // === CONFIGURATION ===
   const SANITY_PROJECT_ID = "cvypf2o3";
   const SANITY_DATASET = "production";
+  const COMMENT_API = "/api/submitcomment"; // main + replies supported
 
-  // ✅ Vercel API Endpoints
-  const COMMENT_API = "/api/submitcomment";  // main + replies supported
-
-  // === HELPER FUNCTION ===
   function getPostSlug() {
     return location.pathname;
   }
 
-  // === FETCH COMMENTS FROM SANITY ===
   async function fetchComments() {
     const slug = getPostSlug();
     const query = encodeURIComponent(`
@@ -20,7 +15,6 @@
         _id, name, comment, _createdAt, parentComment->{_id, name}
       }
     `);
-
     const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2023-01-01/data/query/${SANITY_DATASET}?query=${query}`;
 
     try {
@@ -28,17 +22,16 @@
       const data = await res.json();
       const comments = data.result || [];
       renderComments(comments);
+      setupReplyListeners(); // ✅ now attach listeners after render
     } catch (err) {
       console.error("Error fetching comments:", err);
     }
   }
 
-  // === RENDER COMMENTS ===
   function renderComments(comments) {
     const container = document.getElementById("comment-list");
     if (!container) return;
 
-    // Group comments (replies under parents)
     const grouped = {};
     const roots = [];
     comments.forEach(c => {
@@ -85,7 +78,7 @@
     }[m]));
   }
 
-  // === SETUP MAIN COMMENT FORM ===
+  // === MAIN COMMENT FORM ===
   function setupMainForm() {
     const form = document.getElementById("comment-form");
     if (!form) return;
@@ -95,7 +88,6 @@
       const name = document.getElementById("comment-name").value.trim();
       const comment = document.getElementById("comment-body").value.trim();
       const postSlug = getPostSlug();
-
       if (!name || !comment) return alert("Please fill in all fields.");
 
       const payload = { name, comment, postSlug };
@@ -106,20 +98,19 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-
         if (!res.ok) throw new Error("Failed to submit comment");
 
-        alert("✅ Comment submitted!");
+        showMessage("✅ Comment submitted successfully!");
         form.reset();
         fetchComments();
       } catch (err) {
-        alert("❌ " + err.message);
+        showMessage("❌ " + err.message, true);
       }
     });
   }
 
-  // === SETUP REPLY FORMS ===
-  function setupReplyForms() {
+  // === REPLY FORMS (called after render) ===
+  function setupReplyListeners() {
     document.querySelectorAll(".reply-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const form = btn.nextElementSibling;
@@ -130,12 +121,10 @@
     document.querySelectorAll(".reply-form").forEach(form => {
       form.addEventListener("submit", async e => {
         e.preventDefault();
-
         const parentCommentId = form.closest(".comment-item").dataset.id;
         const name = form.querySelector("input").value.trim();
         const comment = form.querySelector("textarea").value.trim();
         const postSlug = getPostSlug();
-
         if (!name || !comment) return alert("Please complete all fields.");
 
         const payload = { name, comment, postSlug, parentCommentId };
@@ -146,31 +135,35 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
           });
-
           if (!res.ok) throw new Error("Failed to submit reply");
 
-          form.querySelector("input").value = "";
-          form.querySelector("textarea").value = "";
+          form.reset();
           form.classList.add("hidden");
-
           fetchComments();
         } catch (err) {
-          alert("❌ " + err.message);
+          showMessage("❌ " + err.message, true);
         }
       });
     });
   }
 
-  // === INIT ===
+  // === MINI UI HELPER ===
+  function showMessage(msg, error = false) {
+    const form = document.getElementById("comment-form");
+    const note = document.createElement("p");
+    note.textContent = msg;
+    note.style.color = error ? "red" : "green";
+    note.style.fontWeight = "600";
+    form.appendChild(note);
+    setTimeout(() => note.remove(), 4000);
+  }
+
   async function init() {
     await fetchComments();
     setupMainForm();
-    setupReplyForms();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", init)
+    : init();
 })();
