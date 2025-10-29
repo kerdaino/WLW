@@ -64,13 +64,13 @@ header {
   position: sticky; /* Fix header to top */
   top: 0;
   z-index: 1000; /* Keep above all content */
+
 }
 
 .home-ln {
   display: flex;
   flex-direction: column;
-  margin: 0;
-  padding: 10px;
+  padding: 0;
 }
 
 .home-logo a {
@@ -941,4 +941,80 @@ footer button {
 
 .frontrow-listing article h2, .frontrow-listing article p{
   text-align: left;
+}
+
+/* === COMMUNITY BANNER === */
+.community-banner {
+  width: 100vw; /* full viewport width */
+  margin: 0;
+  padding: 18px 15px;
+  background: url("/assets/media/ankara-bg.jpeg") center/cover no-repeat;
+  color: #FFA805;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.6;
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+/* Overlay for better readability */
+.community-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+
+/* Ensure banner content sits above overlay */
+.community-banner p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #FFA805;
+}
+
+/* Join button */
+.community-banner .join-btn {
+  background-color: #FFA805;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 10px;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.community-banner .join-btn:hover {
+  background-color: #C80036;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(200, 0, 54, 0.4);
+}
+
+.community-banner p{
+  text-align: center;
+}
+
+.join-btn a{
+  text-decoration: none;
+  color: #1e1e1e;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .community-banner {
+    font-size: 0.9rem;
+    padding: 3px 5px;
+  }
+
+  .community-banner .join-btn {
+    display: block;
+    margin: 5px auto 0;
+  }
 }

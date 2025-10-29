@@ -1,4 +1,3 @@
-// assets/js/comments.js
 (function () {
   const SANITY_PROJECT_ID = "cvypf2o3";
   const SANITY_DATASET = "production";
