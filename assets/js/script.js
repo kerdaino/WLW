@@ -99,3 +99,53 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// For the Popup 
+// For the Popup 
+document.addEventListener("DOMContentLoaded", function() {
+  const popup = document.getElementById("community-popup");
+  const closeBtn = document.querySelector(".close-btn");
+  const form = document.getElementById("community-form");
+
+  // Only show once per user
+  if (!localStorage.getItem("communityJoined")) {
+    setTimeout(() => {
+      popup.classList.add("show");
+    }, 3000); // Show after 3 seconds
+  }
+
+  // Close button
+  closeBtn.addEventListener("click", () => {
+    popup.classList.remove("show");
+    localStorage.setItem("communityJoined", "closed");
+  });
+
+  // Handle form submission
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value.trim();
+
+    if (!email) {
+      alert("Please enter a valid email.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      alert(data.message || "Thank you for joining!");
+      localStorage.setItem("communityJoined", "true");
+      popup.classList.remove("show");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("❌ Failed to submit. Please try again.");
+    }
+  });
+});
+
+

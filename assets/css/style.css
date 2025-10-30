@@ -1018,3 +1018,96 @@ footer button {
     margin: 5px auto 0;
   }
 }
+
+/* === POPUP STYLES === */
+.community-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.community-popup.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-content {
+  background: url("/assets/media/ankara-bg.jpeg") center/cover no-repeat;
+  position: relative;
+  padding: 2rem;
+  max-width: 420px;
+  width: 90%;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  color: #FFA805;
+  text-align: center;
+  overflow: hidden;
+}
+
+.popup-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 0;
+}
+
+.popup-content * {
+  position: relative;
+  z-index: 1;
+}
+
+.popup-content h2 {
+  color: #FFA805;
+  margin-bottom: 10px;
+}
+
+.popup-content p {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.popup-content input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.popup-content button {
+  background: #FFA805;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.popup-content button:hover {
+  background: #C80036;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
