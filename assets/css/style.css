@@ -1049,6 +1049,18 @@ footer button {
   color: #FFA805;
   text-align: center;
   overflow: hidden;
+  animation: popIn 0.4s ease-out;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .popup-content::before {
@@ -1089,6 +1101,7 @@ footer button {
   color: #fff;
   border: none;
   padding: 10px 25px;
+  margin: 5px;
   border-radius: 30px;
   cursor: pointer;
   font-weight: bold;
@@ -1110,4 +1123,3 @@ footer button {
   cursor: pointer;
   font-weight: bold;
 }
-

@@ -99,27 +99,42 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// For the Popup 
-// For the Popup 
+// === COMMUNITY POPUP HANDLER ===
 document.addEventListener("DOMContentLoaded", function() {
   const popup = document.getElementById("community-popup");
   const closeBtn = document.querySelector(".close-btn");
   const form = document.getElementById("community-form");
+  const openPopupBtn = document.getElementById("open-popup");
 
-  // Only show once per user
+  // Automatically show popup after 3 seconds for first-time visitors
   if (!localStorage.getItem("communityJoined")) {
     setTimeout(() => {
       popup.classList.add("show");
-    }, 3000); // Show after 3 seconds
+    }, 3000);
   }
 
-  // Close button
-  closeBtn.addEventListener("click", () => {
-    popup.classList.remove("show");
-    localStorage.setItem("communityJoined", "closed");
+  // Show popup when "Join Us" button is clicked
+  if (openPopupBtn) {
+    openPopupBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      popup.classList.add("show");
+    });
+  }
+
+  // Close popup when clicking "×" button
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      popup.classList.remove("show");
+      localStorage.setItem("communityJoined", "closed");
+    });
+  }
+
+  // Close popup when clicking outside the popup box
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) popup.classList.remove("show");
   });
 
-  // Handle form submission
+  // Handle email submission
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = e.target.email.value.trim();
@@ -137,15 +152,18 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
       const data = await res.json();
-      alert(data.message || "Thank you for joining!");
-      localStorage.setItem("communityJoined", "true");
-      popup.classList.remove("show");
-      form.reset();
+
+      if (res.ok) {
+        alert(data.message || "🎉 Thanks for joining the What Lagos Wore community!");
+        localStorage.setItem("communityJoined", "true");
+        popup.classList.remove("show");
+        form.reset();
+      } else {
+        alert(data.message || "❌ Failed to submit. Please try again.");
+      }
     } catch (err) {
       console.error(err);
-      alert("❌ Failed to submit. Please try again.");
+      alert("⚠️ Something went wrong. Please try again later.");
     }
   });
 });
-
-
