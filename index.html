@@ -42,20 +42,34 @@
       <div class="line"></div>
 
       <!-- Navigation Bar -->
-      <nav class="navbar home-nav">
-        <ul>
-          <!-- Navigation links -->
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="/frontrow/index.html">Front Row</a></li>
-          <li><a href="/backstage/index.html">Behind the Label</a></li>
-          <li><a href="/events/index.html">Events</a></li>
-          <li><a href="#footer">Contact</a></li>
-          <li><a href="/about/index.html">About</a></li>
-        </ul>
+      <!-- ====== UPDATED NAVIGATION ====== -->
+<nav class="navbar home-nav">
+                <ul class="nav-font">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="/the-fashion-playbook/index.html">The Fashion Playbook</a></li>
+                    <li><a href="/backstage/index.html">Behind the Label</a></li>
+                    <!-- DROPDOWN START -->
+                    <li class="dropdown">
+                        <button class="dropdown-toggle">
+                            Runway Report <span class="dropdown-arrow">▼</span>
+                        </button>
 
-        <!-- Mobile menu icon (hamburger) -->
-        <div class="hamburger">&#9776;</div>
-      </nav>
+                        <ul class="dropdown-menu">
+                            <li><a href="/trend-forecasting/index.html">Trend Forecasting</a></li>
+                            <li><a href="#">Add to Cart</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- DROPDOWN END -->
+                    <li><a href="/blog/index.html">Blog</a></li>
+                    <!-- <li><a href="/events/index.html">Events</a></li> -->
+                    <li><a href="/contact/contact.html">Contact</a></li>
+                    <li><a href="/about/index.html">About</a></li>
+                </ul>
+                <div class="hamburger">&#9776;</div>
+            </nav>
+<!-- ====== END NAVIGATION ====== -->
+
     </header>
 
     <!-- ================= MAIN CONTENT ================= -->
@@ -69,7 +83,7 @@
           <div class="slide" data-bg="assets/media/love-letter.jpg">
             <div class="overlay">
               <h2>“My Love Letter to Nigerian Fashion”</h2>
-              <p></p><a href="/blog/love-letter.html" class="btn">Read Now</a>
+              <p></p><a href="/blog/love-letter.html" class="wlw-btn">Read Now</a>
             </div>
           </div>
 
@@ -77,7 +91,7 @@
           <div class="slide" data-bg="assets/media/shade-image.jpg">
             <div class="overlay">
               <h2>The Mother of Modern Nigerian Fashion</h2>
-              <p></p><a href="/backstage/shade-fahm.html" class="btn">Read Now</a>
+              <p></p><a href="/backstage/shade-fahm.html" class="wlw-btn">Read Now</a>
             </div>
           </div>
 
@@ -85,7 +99,7 @@
           <div class="slide" data-bg="assets/media/ghana-must.jpg">
             <div class="overlay">
               <h2>From Market Bag to Runway</h2>
-              <p></p><a href="/backstage/ghana-must.html" class="btn">Read Now</a>
+              <p></p><a href="/the-fashion-playbook/ghana-must.html" class="wlw-btn">Read Now</a>
             </div>
           </div>
 
@@ -99,17 +113,17 @@
       </section>
 
       <!-- ========== EVENTS PREVIEW SECTION ========== -->
-      <section id="events" class="events-preview">
+      <!-- <section id="events" class="events-preview">
         <h2>Events</h2>
         <div class="preview-grid post-grid">
           <article>
             <img src="/assets/media/gtbank.jpeg" alt="GTCO Fashion Weekend">
             <h3>GTCO Fashion Weekend 2025</h3>
             <p>Lagos Gets Ready for Style</p>
-            <a href="/events/gtbank.html" class="cta-link">Read More</a>
+            <a href="/events/gtbank.html" class="wlw-btn">Read More</a>
           </article>
         </div>
-      </section>
+      </section> -->
 
       <!-- ========== BEHIND THE LABEL SECTION ========== -->
       <section class="ceo-preview two-column">
@@ -119,29 +133,28 @@
         <div class="ceo-text">
           <h2>“BEHIND THE LABEL”</h2>
           <p>Discover the stories behind your favorite African brands and their visionary founders.</p>
-          <a href="/backstage/index.html" class="cta">Unlock the Stories →</a>
+          <a href="/backstage/index.html" class="wlw-btn">Unlock the Stories →</a>
         </div>
       </section>
 
       <!-- ========== FRONT ROW PREVIEW SECTION ========== -->
       <section id="frontrow" class="frontrow-preview">
-        <h2>Front Row</h2>
+        <h2>The Fashion Playbook</h2>
         <div class="preview-grid post-grid">
 
           <!-- Article 1 -->
           <article>
             <img src="/assets/media/model-casting.jpg" alt="Model Casting">
-            <h3>Model Casting Secrets</h3>
-            <p>What Casting Agents Really Look For</p>
-            <a href="/blog/model-casting.html" class="cta-link">Read More</a>
+            <h3>From Market Tokens to Runway Statements</h3>
+            <p>The Tale of Cowries and Stove Wicks in Nigerian Fashion</p>
+            <a href="/the-fashion-playbook/market-tokens.html" class="wlw-btn">Read More</a>
           </article>
 
           <!-- Article 2 -->
           <article>
-            <img src="/assets/media/love-letter.jpg" alt="The Bois Takeover">
-            <h3>My Love Letter to Nigerian Fashion</h3>
-            <p>When “African Fashion” meant the clothes...</p>
-            <a href="/blog/love-letter.html" class="cta-link">Read More</a>
+            <img src="/assets/media/model-casting.jpg" alt="#">
+            <h4>Model Casting Secrets</h4>
+            <a href="/the-fashion-playbook/model-casting.html" class="wlw-btn">READ NOW</a>
           </article>
 
           <!-- Article 3 -->
@@ -149,15 +162,7 @@
             <img src="/assets/media/ghana-must.jpg" alt="Ghana Must Go">
             <h3>Ghana Must Go</h3>
             <p>From Market Bag to Runway...</p>
-            <a href="/backstage/ghana-must.html" class="cta-link">Read More</a>
-          </article>
-
-          <!-- Article 4 -->
-          <article>
-            <img src="/assets/media/fashion-week" alt="Runway Code">
-            <h3>Cracking the Runway Code</h3>
-            <p>How to Showcase Your Brand at Lagos Fashion Week</p>
-            <a href="/frontrow/runway-code.html" class="cta-link">Read More</a>
+            <a href="/the-fashion-playbook/ghana-must.html" class="wlw-btn">Read More</a>
           </article>
         </div>
       </section>
@@ -166,50 +171,37 @@
       <section class="press">
         <h3>For Press and Sponsorship</h3>
         <button>
-          <a href="https://forms.gle/RiszAXCpmJTErPxY7" target="_blank">CLICK HERE</a>
+          <a href="/contact/contact.html" target="_blank">CLICK HERE</a>
         </button>
       </section>
     </main>
 
     <!-- ================= FOOTER SECTION ================= -->
-    <footer id="footer" class="foot">
-      <h2>Contact Us</h2>
-
-      <!-- Flex container for contact form and info -->
-      <div class="footer-flex">
-
-        <!-- Contact Form -->
-        <div class="contact-form">
-          <form>
-            <input type="text" placeholder="Your Name" required />
-            <input type="email" placeholder="Your Email" required />
-            <textarea placeholder="Your Message"></textarea>
-            <button type="submit">Send</button>
-          </form>
-        </div>
-
-        <!-- Contact info and social links -->
-        <div class="info">
-          <address>
-            <p><a href="mailto:info@whatlagoswore.com">info@whatlagoswore.com</a></p>
-          </address>
-
-          <!-- Social media icons -->
-          <div class="socialmedia">
-            <a href="https://www.linkedin.com/posts/whatlagoswore_whatlagoswore-fashionplaybook-sustainablefashion-activity-7348797719328522243-Hkly?utm_source=share&utm_medium=member_ios&rcm=ACoAAEZ8Sz0BhNMQqiMIzT8VBHD_Yu1T7Ritqzs"
-              target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://www.instagram.com/whatlagoswore?igsh=MWhxcmpmdTNoaGx2cw%3D%3D&utm_source=qr"
-              target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://x.com/whatlagoswore?s=11" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="https://www.tiktok.com/@whatlagoswore?_t=ZS-8zUX4JalZRA&_r=1" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://pin.it/1whGjnpQd" target="_blank"><i class="fa-brands fa-pinterest"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer copyright -->
+  <!-- FOOTER -->
+<footer id="footer" class="foot">
+  <div class="footer-inner">
+    <!-- Left: Brand + copyright -->
+    <div class="footer-col brand">
       <p>&copy; 2025 What Lagos Wore</p>
-    </footer>
+    </div>
+
+    <!-- Center: Quick contact -->
+    <div class="footer-col contact">
+      <a href="/contact/contact.html" class="wlw-btn small-btn">Contact Us</a>
+    </div>
+
+    <!-- Right: Social links -->
+    <div class="footer-col social">
+      <a href="https://www.linkedin.com/company/whatlagoswore" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/whatlagoswore" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://x.com/whatlagoswore" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://www.tiktok.com/@whatlagoswore" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="https://pin.it/1whGjnpQd" target="_blank"><i class="fa-brands fa-pinterest"></i></a>
+    </div>
+  </div>
+</footer>
+
+
 
     <!-- === COMMUNITY POPUP === -->
 <div id="community-popup" class="community-popup">
@@ -226,6 +218,8 @@
 
     <!-- External JavaScript file -->
     <script src="assets/js/script.js"></script>
+    <script defer src="https://va.vercel-scripts.com/v1/script.js" data-token="YOUR_ANALYTICS_TOKEN"></script>
+
   </div> <!-- End fade-in container -->
 </body>
 

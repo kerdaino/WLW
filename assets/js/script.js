@@ -167,3 +167,30 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+
+// SIMPLE CLICK-ONLY DROPDOWN (DESKTOP + MOBILE)
+document.addEventListener("DOMContentLoaded", () => {
+
+  const dropdown = document.querySelector(".dropdown");
+  const toggle = document.querySelector(".dropdown-toggle");
+  const menu = document.querySelector(".dropdown-menu");
+
+  if (!dropdown || !toggle || !menu) return;
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("open");
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", () => {
+    dropdown.classList.remove("open");
+  });
+
+  // Don’t close when clicking inside menu
+  menu.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+});
+
+
