@@ -29,7 +29,7 @@
     <header class="home-ln">
       <div class="community-banner">
       <p>Join What Lagos Wore community and stay in the loop.
- <button class="join-btn" id="open-popup">Join Us</button>
+ <button class="join-btn" id="open-popup" type="button">Join Us</button>
       </p>
     </div>
       <!-- Decorative border line (left) -->
@@ -50,7 +50,7 @@
   <li><a href="/backstage/index.html">Behind the Label</a></li>
 
   <li class="dropdown">
-    <button class="dropdown-toggle">
+    <button class="dropdown-toggle" type="button" aria-expanded="false">
       Runway Report <span class="dropdown-arrow">▼</span>
     </button>
     <ul class="dropdown-menu">
@@ -101,8 +101,8 @@
           </div>
 
           <!-- Slider navigation arrows -->
-          <a class="prev">&#10094;</a>
-          <a class="next">&#10095;</a>
+          <button class="prev" type="button" aria-label="Previous slide">&#10094;</button>
+          <button class="next" type="button" aria-label="Next slide">&#10095;</button>
 
           <!-- Dots for slide indicators -->
           <div class="dots"></div>
@@ -168,9 +168,7 @@
       <!-- ========== PRESS / SPONSORSHIP SECTION ========== -->
       <section class="press">
         <h3>For Press and Sponsorship</h3>
-        <button>
-          <a href="/contact/contact.html" target="_blank">CLICK HERE</a>
-        </button>
+        <a href="/contact/contact.html" class="wlw-btn press-link">CLICK HERE</a>
       </section>
     </main>
 
@@ -190,11 +188,11 @@
 
     <!-- Right: Social links -->
     <div class="footer-col social">
-      <a href="https://www.linkedin.com/company/whatlagoswore" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/whatlagoswore" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-      <a href="https://x.com/whatlagoswore" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="https://www.tiktok.com/@whatlagoswore" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-      <a href="https://pin.it/1whGjnpQd" target="_blank"><i class="fa-brands fa-pinterest"></i></a>
+      <a href="https://www.linkedin.com/company/whatlagoswore" target="_blank" rel="noopener noreferrer" aria-label="What Lagos Wore on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/whatlagoswore" target="_blank" rel="noopener noreferrer" aria-label="What Lagos Wore on Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://x.com/whatlagoswore" target="_blank" rel="noopener noreferrer" aria-label="What Lagos Wore on X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://www.tiktok.com/@whatlagoswore" target="_blank" rel="noopener noreferrer" aria-label="What Lagos Wore on TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="https://pin.it/1whGjnpQd" target="_blank" rel="noopener noreferrer" aria-label="What Lagos Wore on Pinterest"><i class="fa-brands fa-pinterest"></i></a>
     </div>
   </div>
 </footer>
@@ -202,13 +200,14 @@
 
 
     <!-- === COMMUNITY POPUP === -->
-<div id="community-popup" class="community-popup">
+<div id="community-popup" class="community-popup" role="dialog" aria-modal="true" aria-labelledby="community-popup-title" aria-hidden="true">
   <div class="popup-content">
-    <button class="close-btn">&times;</button>
-    <h2>Join the What Lagos Wore Community 💃🏾</h2>
+    <button class="close-btn" type="button" aria-label="Close subscription popup">&times;</button>
+    <h2 id="community-popup-title">Join the What Lagos Wore Community 💃🏾</h2>
 
     <form id="community-form">
-  <input type="email" name="email" placeholder="Enter your email" required>
+  <label class="sr-only" for="community-email">Email address</label>
+  <input id="community-email" type="email" name="email" placeholder="Enter your email" autocomplete="email" required>
   <button type="submit">Join Now</button>
 </form>
   </div>
