@@ -1,3 +1,69 @@
+// THEME TOGGLE
+(function() {
+  const storageKey = "wlwTheme";
+  const root = document.documentElement;
+  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function getSavedTheme() {
+    try {
+      return localStorage.getItem(storageKey);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function setSavedTheme(theme) {
+    try {
+      localStorage.setItem(storageKey, theme);
+    } catch (error) {
+      // Theme still works for the current page if storage is unavailable.
+    }
+  }
+
+  function getInitialTheme() {
+    const savedTheme = getSavedTheme();
+    if (savedTheme === "dark" || savedTheme === "light") return savedTheme;
+    return systemPrefersDark.matches ? "dark" : "light";
+  }
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    document.querySelectorAll(".theme-toggle").forEach((button) => {
+      const isDark = theme === "dark";
+      button.setAttribute("aria-pressed", String(isDark));
+      button.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+      button.textContent = isDark ? "Light" : "Dark";
+    });
+  }
+
+  applyTheme(getInitialTheme());
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".navbar").forEach((navbar) => {
+      if (navbar.querySelector(".theme-toggle")) return;
+
+      const button = document.createElement("button");
+      button.className = "theme-toggle";
+      button.type = "button";
+      button.addEventListener("click", () => {
+        const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        setSavedTheme(nextTheme);
+        applyTheme(nextTheme);
+      });
+
+      const hamburger = navbar.querySelector(".hamburger");
+      navbar.insertBefore(button, hamburger || null);
+    });
+
+    applyTheme(root.getAttribute("data-theme") || getInitialTheme());
+  });
+
+  systemPrefersDark.addEventListener("change", (event) => {
+    if (getSavedTheme()) return;
+    applyTheme(event.matches ? "dark" : "light");
+  });
+})();
+
 // HERO SLIDER
 let currentSlide = 0;
 const slides = document.querySelectorAll(".slide");
@@ -242,4 +308,3 @@ document.addEventListener("DOMContentLoaded", () => {
     e.stopPropagation();
   });
 });
-
